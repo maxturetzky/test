@@ -1,0 +1,16 @@
+title: The Story So Far
+new-page: true
+game-over: true
+
+= 1936
+
+The years of the Federation have run their course, and the country is not the one it was in 1928. The story is unfinished: the endings have not been written yet.
+
+**The House of Representatives**
+
+<span style="color: #1F4E9C;">**Republican Old Guard**</span>: [+ bloc_old_guard +]
+<span style="color: #7BA7D9;">**Republican Liberals**</span>: [+ bloc_liberals +]
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ bloc_southern +]
+<span style="color: #D98C3F;">**Machine Democrats**</span>: [+ bloc_machine +]
+<span style="color: #8A8A8A;">**Bourbon Democrats**</span>: [+ bloc_bourbon +]
+<span style="color: #C0392B;">**Farmer-Labor**</span>: [+ bloc_fl +]

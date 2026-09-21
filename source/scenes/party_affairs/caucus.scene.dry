@@ -1,0 +1,56 @@
+title: Faction Caucus
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: caucus_timer <= 0
+on-arrival: caucus_timer = 4; month_actions += 1
+
+= Faction Caucus
+
+The Federation only holds together if each of its wings feels heard. Whose concerns should get the floor at this month's caucus?
+
+- @caucus_socialists: The Socialists.
+- @caucus_populists: The Populists.
+- @caucus_unionists: The Trade Unionists.
+- @caucus_progressives: The Progressives.
+
+@caucus_socialists
+on-arrival: {!
+Q.socialists_strength += 3;
+Q.socialists_dissent = Math.max(0, Q.socialists_dissent - 6);
+Q.populists_strength -= 1; Q.unionists_strength -= 1; Q.progressives_strength -= 1;
+Q.urban_ethnic_fl += 1;
+Q.small_town_fl -= 1;
+!}
+
+Norman Thomas holds forth for two hours on the co-operative commonwealth. The organizers leave the room energized. The moderates leave it checking their watches.
+
+@caucus_populists
+on-arrival: {!
+Q.populists_strength += 3;
+Q.populists_dissent = Math.max(0, Q.populists_dissent - 6);
+Q.socialists_strength -= 1; Q.unionists_strength -= 1; Q.progressives_strength -= 1;
+Q.farmers_fl += 1;
+!}
+
+Robert La Follette Jr. and Governor Olson lay out a programme of grain elevators, public banks and freight rates. It is the most practical hour of the year, and the farm delegations go home satisfied.
+
+@caucus_unionists
+on-arrival: {!
+Q.unionists_strength += 3;
+Q.unionists_dissent = Math.max(0, Q.unionists_dissent - 6);
+Q.socialists_strength -= 1; Q.populists_strength -= 1; Q.progressives_strength -= 1;
+Q.tradesmen_fl += 1;
+!}
+
+John L. Lewis, Sidney Hillman and Philip Murray come with a list of bargaining demands and a clear message about who pays for the party's campaigns. Nobody argues.
+
+@caucus_progressives
+on-arrival: {!
+Q.progressives_strength += 3;
+Q.progressives_dissent = Math.max(0, Q.progressives_dissent - 6);
+Q.socialists_strength -= 1; Q.populists_strength -= 1; Q.unionists_strength -= 1;
+Q.small_town_fl += 1;
+!}
+
+La Guardia and Ickes come armed with ledgers documenting municipal graft and a proposal for direct democracy. The middle-class reformers are delighted, and the socialists mutter about half-measures.

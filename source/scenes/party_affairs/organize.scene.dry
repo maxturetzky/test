@@ -1,0 +1,39 @@
+title: Local Organizing
+new-page: true
+is-card: true
+tags: party_affairs
+on-arrival: month_actions += 1
+
+= Local Organizing
+
+Elections are won in union halls, grange meetings and church basements long before they are won at the ballot box. Where should our organizers spend the month?
+
+- @organize_farmers: Among the plains farmers and their co-operatives.
+- @organize_urban: In the immigrant wards of the cities.
+- @organize_industrial: In the mine, mill and packing-house towns.
+- @organize_towns: In the small towns.
+- @organize_none: Nowhere in particular; let the month pass.
+
+@organize_farmers
+on-arrival: farmers_fl += 2
+
+Grain elevator meetings, county fair booths and evenings at the grange hall. Slow work, but the farmers remember who showed up.
+
+@organize_urban
+on-arrival: urban_ethnic_fl += 2
+
+Organizers who speak Yiddish, Italian, Polish and German knock on doors in the tenements. The machines have been there for decades, but they have never asked for anything other than votes.
+
+@organize_industrial
+on-arrival: industrial_fl += 2
+
+In company towns where a man can be fired for reading the wrong newspaper, the work is quiet and dangerous. It is also the most loyal support the party has.
+
+@organize_towns
+on-arrival: small_town_fl += 2
+
+Teachers, shopkeepers and ministers are not natural allies, but a patient organizer with a pamphlet on clean government and a cup of coffee can make progress.
+
+@organize_none
+
+The month passes without incident.

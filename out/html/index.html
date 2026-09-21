@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta prefix="ifiction: http://babel.ifarchive.org/protocol/iFiction/"
         property="ifiction:ifid" content="7FCDF039-2B77-4179-B795-CBAFA65253AA">
-    <title>Dynamic Social Democracy</title>
+    <title>Farmer-Labor: An Alternate History</title>
     <link rel="stylesheet" type="text/css" href="game.css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <script src="jquery-1.11.1.min.js"></script>
@@ -151,7 +151,6 @@
                     <td></td>
                     <td></td>
                    <td>
-                        <button onclick="window.showMods();">Mods</button>
                     </td>
 
                 </tr>
@@ -317,30 +316,26 @@
     <div id='page'>
         <div id="mid_panel">
             <header>
-                <h1 id="game-title">Dynamic Social Democracy: An Alternate History</h1>
-                <h2 id="game-author">Autumn Chen, modded by originn0</h2>
+                <h1 id="game-title">Farmer-Labor: An Alternate History</h1>
+                <h2 id="game-author">Max Turetzky</h2>
 
                 <div id="header-links">
-                    <a id="stats-link" onclick="window.showStats();" href="#">Library</a>
-                    <a onclick="dendryUI.showSaveSlots();" href="#">Save/Load</a>
+                                        <a onclick="dendryUI.showSaveSlots();" href="#">Save/Load</a>
                     <a onclick="window.showOptions();" href="#">Options</a>
                 </div>
             </header>
             <div id="tools_wrapper">
                 <div id='stats_sidebar' class='tools left'>
                     <div class="tab_container">
-                        <button class="tab_button" id="emergency_tab" onclick="window.changeTab('status.emergency', 'emergency_tab');" style="display: none;">Emergency Status</button>
                         <button class="tab_button active" id="main_tab" onclick="window.changeTab('status', 'main_tab');">Main</button>
                         <button class="tab_button" id="politics_tab" onclick="window.changeTab('status.politics', 'politics_tab');">Politics</button>
-                        <button class="tab_button" id="paramilitary_tab" onclick="window.changeTab('status.paramilitaries', 'paramilitary_tab');">Defense</button>
-                        <button class="tab_button" id="poll_tab" onclick="window.changeTab('status.polls', 'poll_tab');">Polls</button>
                     </div>
                     <div id="qualities">
                     </div>
                 </div>
                 <div id='stats_sidebar_right' class='tools right'>
                     <div class="tab_container">
-                        <button class="tab_button active" id="scheming_tab" onclick="window.changeTab('status_right', 'scheming_tab', true);">Scheming</button>
+                        <button class="tab_button active" id="factions_tab" onclick="window.changeTab('status_right', 'factions_tab', true);">Factions</button>
                     </div>
                     <div id="qualities_right">
                     </div>
@@ -359,7 +354,7 @@
         <a onclick="window.quickLoad();" href="#">Quick Load</a>
       </p>
 
-      &copy; 2021 Autumn Chen.
+      &copy; 2021 Autumn Chen (engine and original game). Farmer-Labor fork by Max Turetzky.
       Made with <a href="https://github.com/aucchen/dendry">Dendry</a>.
       -->
             </footer>

@@ -1,0 +1,27 @@
+title: The Temperance Question
+subtitle: Wet or dry?
+tags: event
+view-if: year = 1928 and month >= 4
+priority: 1
+max-visits: 1
+
+The country's oldest culture war has found its way into the Federation. The farmers of the plains, most of them dry and many of them churchgoers, want Prohibition enforced. The urban ethnic wards, whose neighborhood taverns are the heart of community life, want it repealed. Every convention delegate has an opinion, and every newspaper wants ours.
+
+- @enforce: Stand for enforcement.
+- @repeal: Stand for repeal.
+- @local: Leave it to the states and localities.
+
+@enforce
+on-arrival: farmers_fl += 4; small_town_fl += 3; urban_ethnic_fl -= 6; socialists_dissent += 4; progressives_strength += 1
+
+The dry vote is delighted. The wet wards of the cities are not, and the Socialists, who count many brewery workers among their members, are furious.
+
+@repeal
+on-arrival: urban_ethnic_fl += 6; small_town_fl -= 4; farmers_fl -= 3; populists_dissent += 5
+
+The cities cheer. In the farm and small-town press, however, the party is denounced as the friend of the saloon and the bootlegger.
+
+@local
+on-arrival: socialists_dissent += 1; populists_dissent += 1; progressives_dissent += 1; unionists_dissent += 1
+
+Neither side is satisfied, but neither is enraged. The question stays with us, waiting for another day.
