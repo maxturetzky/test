@@ -92,18 +92,18 @@ Q.mod_heartland_rep = 0.85;
 Q.mod_heartland_dem = 0.75;
 Q.mod_industrial_belt_fl = 0.8;
 Q.mod_industrial_belt_rep = 1.05;
-Q.mod_industrial_belt_dem = 1.05;
+Q.mod_industrial_belt_dem = 1.7;
 Q.mod_west_fl = 1.1;
 Q.mod_west_rep = 0.95;
 Q.mod_west_dem = 0.9;
 // House seats are decided by region. These factors stand in for how tightly a party's vote is packed
-// into districts: FL's in farm counties, mining districts and mill towns, the Democrats' in
-// machine-run city wards, the Republicans' in the South's border states. A factor above 1 wins a
+// into districts: FL's in farm counties, mining districts and mill towns, the Republicans' in the
+// South's border states. The Democrats have none in the Industrial Belt (1). A factor above 1 wins a
 // party more seats than its vote share alone would. They are fitted values, not sourced from anywhere.
 // They were fitted before the regional adjustments above were added, so they have not been refitted.
 Q.conc_heartland_fl = 2;
 Q.conc_industrial_belt_fl = 2;
-Q.conc_industrial_belt_dem = 4;
+Q.conc_industrial_belt_dem = 1;
 Q.conc_west_fl = 1.2;
 Q.conc_south_rep = 2.5;
 
