@@ -214,7 +214,10 @@
             blocs: {conservative_rep: 0, liberal_rep: 0, southern_dem: 0, northern_dem: 0, fl: 0},
             up: 0,
             won: {rep: 0, dem: 0, fl: 0},
-            changes: []
+            changes: [],
+            // one entry per seat that is up: who holds it, who wins it, and by how much (in points,
+            // counting the holder's incumbency bonus).
+            races: []
         };
         Q.state_ids.forEach(function (id) {
             [1, 2].forEach(function (n) {
@@ -230,6 +233,21 @@
                             winner = p;
                             best = shares[p];
                         }
+                    });
+                    // the runner-up's score, for the margin.
+                    var runnerUp = -1;
+                    PARTIES.forEach(function (p) {
+                        if (p != winner) {
+                            var score = shares[p] + (p == party ? Q.senate_incumbency : 0);
+                            runnerUp = Math.max(runnerUp, score);
+                        }
+                    });
+                    out.races.push({
+                        id: id,
+                        name: Q['st_' + id + '_name'],
+                        holder: party,
+                        winner: winner,
+                        margin: Math.round(10 * (best - runnerUp)) / 10
                     });
                     out.won[winner] += 1;
                     if (winner != party) {
@@ -260,5 +278,7 @@
             Q[prefix + 'sen_won_' + p] = senate.won[p];
         });
         Q[prefix + 'sen_changes'] = senate.changes.length ? senate.changes.join(', ') : 'none';
+        // kept as text so the closest-races list (maps.js) can show it.
+        Q[prefix + 'sen_races'] = JSON.stringify(senate.races);
     };
 }());

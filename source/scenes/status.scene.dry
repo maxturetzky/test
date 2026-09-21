@@ -19,32 +19,32 @@ Next House election: November [+ next_election_year +]
 
 218 seats are needed for a majority.
 
-<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ bloc_conservative_rep +]
-<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ bloc_liberal_rep +]
-<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ bloc_southern_dem +]
-<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ bloc_northern_dem +]
+<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ bloc_conservative_rep +]<br>
+<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ bloc_liberal_rep +]<br>
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ bloc_southern_dem +]<br>
+<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ bloc_northern_dem +]<br>
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ bloc_fl +]
 
 = The Senate
 
 49 seats are needed for a majority.
 
-<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ sen_bloc_conservative_rep +]
-<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ sen_bloc_liberal_rep +]
-<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ sen_bloc_southern_dem +]
-<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ sen_bloc_northern_dem +]
+<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ sen_bloc_conservative_rep +]<br>
+<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ sen_bloc_liberal_rep +]<br>
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ sen_bloc_southern_dem +]<br>
+<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ sen_bloc_northern_dem +]<br>
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ sen_bloc_fl +]
 
 = Last Election
 
-<span style="color: #1F4E9C;">**Republicans**</span>: [+ vote_rep +]%
-<span style="color: #B5651D;">**Democrats**</span>: [+ vote_dem +]%
+<span style="color: #1F4E9C;">**Republicans**</span>: [+ vote_rep +]%<br>
+<span style="color: #B5651D;">**Democrats**</span>: [+ vote_dem +]%<br>
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ vote_fl +]%
 
 Farmer-Labor seats by region
 
-The Heartland: [+ seats_heartland_fl +] of [+ seats_total_heartland +] ([+ share_heartland_fl +]%)
-The Industrial Belt: [+ seats_industrial_belt_fl +] of [+ seats_total_industrial_belt +] ([+ share_industrial_belt_fl +]%)
+The Heartland: [+ seats_heartland_fl +] of [+ seats_total_heartland +] ([+ share_heartland_fl +]%)<br>
+The Industrial Belt: [+ seats_industrial_belt_fl +] of [+ seats_total_industrial_belt +] ([+ share_industrial_belt_fl +]%)<br>
 The West: [+ seats_west_fl +] of [+ seats_total_west +] ([+ share_west_fl +]%)
 
 
@@ -74,30 +74,30 @@ if (Q.started) {
 
 If the election were held today:
 
-<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ poll_bloc_conservative_rep +]
-<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ poll_bloc_liberal_rep +]
-<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ poll_bloc_southern_dem +]
-<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ poll_bloc_northern_dem +]
+<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ poll_bloc_conservative_rep +]<br>
+<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ poll_bloc_liberal_rep +]<br>
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ poll_bloc_southern_dem +]<br>
+<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ poll_bloc_northern_dem +]<br>
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ poll_bloc_fl +]
 
 = Projected Senate
 
 Seats up in November [+ next_election_year +]: [+ poll_sen_up +]
 
-<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ poll_sen_bloc_conservative_rep +]
-<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ poll_sen_bloc_liberal_rep +]
-<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ poll_sen_bloc_southern_dem +]
-<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ poll_sen_bloc_northern_dem +]
+<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ poll_sen_bloc_conservative_rep +]<br>
+<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ poll_sen_bloc_liberal_rep +]<br>
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ poll_sen_bloc_southern_dem +]<br>
+<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ poll_sen_bloc_northern_dem +]<br>
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ poll_sen_bloc_fl +]
 
 = Support by Group
 
 <span style="color: #1F4E9C;">R</span> / <span style="color: #B5651D;">D</span> / <span style="color: #C0392B;">FL</span>
 
-**Farmers**: <span style="color: #1F4E9C;">[+ poll_farmers_rep +]</span> / <span style="color: #B5651D;">[+ poll_farmers_dem +]</span> / <span style="color: #C0392B;">[+ poll_farmers_fl +]</span>
-**Southern whites**: <span style="color: #1F4E9C;">[+ poll_southern_whites_rep +]</span> / <span style="color: #B5651D;">[+ poll_southern_whites_dem +]</span> / <span style="color: #C0392B;">[+ poll_southern_whites_fl +]</span>
-**Urban ethnic workers**: <span style="color: #1F4E9C;">[+ poll_urban_ethnic_rep +]</span> / <span style="color: #B5651D;">[+ poll_urban_ethnic_dem +]</span> / <span style="color: #C0392B;">[+ poll_urban_ethnic_fl +]</span>
-**Skilled tradesmen**: <span style="color: #1F4E9C;">[+ poll_tradesmen_rep +]</span> / <span style="color: #B5651D;">[+ poll_tradesmen_dem +]</span> / <span style="color: #C0392B;">[+ poll_tradesmen_fl +]</span>
-**Industrial workers**: <span style="color: #1F4E9C;">[+ poll_industrial_rep +]</span> / <span style="color: #B5651D;">[+ poll_industrial_dem +]</span> / <span style="color: #C0392B;">[+ poll_industrial_fl +]</span>
-**Business and professional**: <span style="color: #1F4E9C;">[+ poll_business_rep +]</span> / <span style="color: #B5651D;">[+ poll_business_dem +]</span> / <span style="color: #C0392B;">[+ poll_business_fl +]</span>
+**Farmers**: <span style="color: #1F4E9C;">[+ poll_farmers_rep +]</span> / <span style="color: #B5651D;">[+ poll_farmers_dem +]</span> / <span style="color: #C0392B;">[+ poll_farmers_fl +]</span><br>
+**Southern whites**: <span style="color: #1F4E9C;">[+ poll_southern_whites_rep +]</span> / <span style="color: #B5651D;">[+ poll_southern_whites_dem +]</span> / <span style="color: #C0392B;">[+ poll_southern_whites_fl +]</span><br>
+**Urban ethnic workers**: <span style="color: #1F4E9C;">[+ poll_urban_ethnic_rep +]</span> / <span style="color: #B5651D;">[+ poll_urban_ethnic_dem +]</span> / <span style="color: #C0392B;">[+ poll_urban_ethnic_fl +]</span><br>
+**Skilled tradesmen**: <span style="color: #1F4E9C;">[+ poll_tradesmen_rep +]</span> / <span style="color: #B5651D;">[+ poll_tradesmen_dem +]</span> / <span style="color: #C0392B;">[+ poll_tradesmen_fl +]</span><br>
+**Industrial workers**: <span style="color: #1F4E9C;">[+ poll_industrial_rep +]</span> / <span style="color: #B5651D;">[+ poll_industrial_dem +]</span> / <span style="color: #C0392B;">[+ poll_industrial_fl +]</span><br>
+**Business and professional**: <span style="color: #1F4E9C;">[+ poll_business_rep +]</span> / <span style="color: #B5651D;">[+ poll_business_dem +]</span> / <span style="color: #C0392B;">[+ poll_business_fl +]</span><br>
 **Small-town middle class**: <span style="color: #1F4E9C;">[+ poll_small_town_rep +]</span> / <span style="color: #B5651D;">[+ poll_small_town_dem +]</span> / <span style="color: #C0392B;">[+ poll_small_town_fl +]</span>

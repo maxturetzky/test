@@ -923,3 +923,8 @@ th {
 .progress-text {
   margin-top: 10px;
 }
+
+/* lists of lines separated by line breaks (the House and Senate blocs) shouldn't indent their first line */
+#content p:has(br) {
+  text-indent: 0;
+}

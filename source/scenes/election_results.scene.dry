@@ -6,33 +6,37 @@ on-arrival: election_live = 0
 
 **National vote**
 
-<span style="color: #1F4E9C;">**Republicans**</span>: [+ vote_rep +]%
-<span style="color: #B5651D;">**Democrats**</span>: [+ vote_dem +]%
+<span style="color: #1F4E9C;">**Republicans**</span>: [+ vote_rep +]%<br>
+<span style="color: #B5651D;">**Democrats**</span>: [+ vote_dem +]%<br>
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ vote_fl +]%
 
 **The House of Representatives** (218 needed for a majority)
 
-<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ bloc_conservative_rep +]
-<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ bloc_liberal_rep +]
-<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ bloc_southern_dem +]
-<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ bloc_northern_dem +]
+<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ bloc_conservative_rep +]<br>
+<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ bloc_liberal_rep +]<br>
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ bloc_southern_dem +]<br>
+<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ bloc_northern_dem +]<br>
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ bloc_fl +]
 
 **The Senate** (49 needed for a majority)
 
 [+ sen_up +] seats were up. Farmer-Labor won [+ sen_won_fl +] of them.
 
-<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ sen_bloc_conservative_rep +]
-<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ sen_bloc_liberal_rep +]
-<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ sen_bloc_southern_dem +]
-<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ sen_bloc_northern_dem +]
+<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ sen_bloc_conservative_rep +]<br>
+<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ sen_bloc_liberal_rep +]<br>
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ sen_bloc_southern_dem +]<br>
+<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ sen_bloc_northern_dem +]<br>
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ sen_bloc_fl +]
 
 Seats that changed hands: [+ sen_changes +]
 
+**The states**
+
+<div class="state-map" data-source="result"></div>
+
 **Farmer-Labor by region**
 
-The Heartland: [+ seats_heartland_fl +] of [+ seats_total_heartland +] seats ([+ share_heartland_fl +]% of the vote)
-The Industrial Belt: [+ seats_industrial_belt_fl +] of [+ seats_total_industrial_belt +] seats ([+ share_industrial_belt_fl +]% of the vote)
+The Heartland: [+ seats_heartland_fl +] of [+ seats_total_heartland +] seats ([+ share_heartland_fl +]% of the vote)<br>
+The Industrial Belt: [+ seats_industrial_belt_fl +] of [+ seats_total_industrial_belt +] seats ([+ share_industrial_belt_fl +]% of the vote)<br>
 The West: [+ seats_west_fl +] of [+ seats_total_west +] seats ([+ share_west_fl +]% of the vote)
 
