@@ -52,20 +52,20 @@ Q.voters_west = 15;
 
 // share of each region's electorate made up of each group (percent).
 var mix = {
-    heartland: {farmers: 38, southern_whites: 0, urban_ethnic: 8, tradesmen: 7, industrial: 9, business: 6, small_town: 32},
-    industrial_belt: {farmers: 5, southern_whites: 0, urban_ethnic: 26, tradesmen: 12, industrial: 13, business: 18, small_town: 26},
-    south: {farmers: 0, southern_whites: 90, urban_ethnic: 2, tradesmen: 2, industrial: 2, business: 4, small_town: 0},
-    west: {farmers: 15, southern_whites: 0, urban_ethnic: 16, tradesmen: 10, industrial: 18, business: 10, small_town: 31}
+    heartland: {farmers: 38, southern_whites: 0, urban_ethnic: 10, tradesmen: 6, industrial: 9, business: 5, small_town: 32},
+    industrial_belt: {farmers: 4, southern_whites: 0, urban_ethnic: 26, tradesmen: 12, industrial: 14, business: 18, small_town: 26},
+    south: {farmers: 0, southern_whites: 90, urban_ethnic: 1, tradesmen: 2, industrial: 3, business: 2, small_town: 2},
+    west: {farmers: 16, southern_whites: 0, urban_ethnic: 14, tradesmen: 8, industrial: 18, business: 10, small_town: 34}
 };
 // support for each party by group. Doesn't need to sum to 100; the election normalizes.
 var sup = {
-    farmers: {rep: 32, dem: 10, fl: 58},
-    southern_whites: {rep: 6, dem: 92, fl: 2},
-    urban_ethnic: {rep: 26, dem: 52, fl: 22},
-    tradesmen: {rep: 50, dem: 24, fl: 26},
-    industrial: {rep: 34, dem: 26, fl: 40},
-    business: {rep: 78, dem: 19, fl: 3},
-    small_town: {rep: 62, dem: 21, fl: 17}
+    farmers: {rep: 44, dem: 6, fl: 50},
+    southern_whites: {rep: 6, dem: 94, fl: 0},
+    urban_ethnic: {rep: 32, dem: 40, fl: 28},
+    tradesmen: {rep: 63, dem: 16, fl: 21},
+    industrial: {rep: 40, dem: 25, fl: 35},
+    business: {rep: 86, dem: 12, fl: 2},
+    small_town: {rep: 63, dem: 15, fl: 22}
 };
 for (var r of Q.regions) {
     for (var g of Q.groups) {
@@ -85,9 +85,12 @@ for (var g of Q.groups) {
     // Farmer-Labor's baseline in each group; campaign gains fade back toward it over time.
     Q['base_' + g + '_fl'] = sup[g].fl;
 }
-Q.conc_heartland_fl = 1.5;
-Q.conc_west_fl = 1.2;
-Q.conc_industrial_belt_dem = 1.1;
+// Farmer-Labor's vote is concentrated in farm counties, mining districts and mill towns, and the
+// Democrats' in machine-run city wards, so both win more seats than their vote share suggests.
+Q.conc_heartland_fl = 1.9;
+Q.conc_west_fl = 1.5;
+Q.conc_industrial_belt_fl = 2;
+Q.conc_industrial_belt_dem = 4;
 
 // how much of the Republican bloc is the Liberal wing, and of the northern Democrats the Bourbons (percent).
 Q.liberal_share = 9;

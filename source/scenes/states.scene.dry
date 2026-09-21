@@ -34,7 +34,7 @@ var states = [
     ['NJ', 'New Jersey', 'industrial_belt', 12, {fl: 0.95, dem: 1.10}],
     ['PA', 'Pennsylvania', 'industrial_belt', 36, {fl: 0.90, rep: 1.10}],
     ['DE', 'Delaware', 'industrial_belt', 1, {rep: 1.05}],
-    ['MD', 'Maryland', 'industrial_belt', 6, {dem: 1.15, rep: 0.95}],
+    ['WV', 'West Virginia', 'industrial_belt', 6, {fl: 1.10, rep: 1.10}],
     ['OH', 'Ohio', 'industrial_belt', 22, {fl: 1.05}],
     ['IN', 'Indiana', 'industrial_belt', 13, {fl: 1.00, rep: 1.05}],
     ['MI', 'Michigan', 'industrial_belt', 13, {fl: 1.00}],
@@ -53,8 +53,8 @@ var states = [
     ['TX', 'Texas', 'south', 18, {}],
     ['VA', 'Virginia', 'south', 10, {rep: 3.0}],
     ['KY', 'Kentucky', 'south', 11, {rep: 4.5}],
-    ['WV', 'West Virginia', 'south', 6, {rep: 4.5}],
     ['MO', 'Missouri', 'south', 16, {rep: 3.2}],
+    ['MD', 'Maryland', 'south', 6, {rep: 3.5}],
 
     // The West
     ['WA', 'Washington', 'west', 5, {fl: 1.30}],
