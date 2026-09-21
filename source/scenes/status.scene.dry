@@ -42,3 +42,7 @@ Next House election: November [+ next_election_year +]
 The Heartland: [+ seats_heartland_fl +] of [+ seats_total_heartland +] seats ([+ share_heartland_fl +]%)
 The Industrial Belt: [+ seats_industrial_belt_fl +] of [+ seats_total_industrial_belt +] seats ([+ share_industrial_belt_fl +]%)
 The West: [+ seats_west_fl +] of [+ seats_total_west +] seats ([+ share_west_fl +]%)
+
+= Farmer-Labor by State
+
+[+ fl_state_summary +]

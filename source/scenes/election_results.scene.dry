@@ -24,3 +24,7 @@ on-arrival: election_live = 0
 The Heartland: [+ seats_heartland_fl +] of [+ seats_total_heartland +] seats ([+ share_heartland_fl +]% of the vote)
 The Industrial Belt: [+ seats_industrial_belt_fl +] of [+ seats_total_industrial_belt +] seats ([+ share_industrial_belt_fl +]% of the vote)
 The West: [+ seats_west_fl +] of [+ seats_total_west +] seats ([+ share_west_fl +]% of the vote)
+
+**Farmer-Labor's seats by state**
+
+[+ fl_state_summary +]

@@ -1,0 +1,87 @@
+title: State Setup
+new-page: true
+on-arrival: {!
+// One row per state: [abbreviation, name, region, House seats (1913-1933 apportionment), party multipliers].
+//
+// The multipliers scale a party's vote in that state relative to its region. 1 is neutral, and
+// anything left out is 1. They are rescaled at election time so that each region's seat-weighted
+// average stays at 1, so they only say which states run above or below their region. They
+// don't change the regional totals. The exception is the South, which isn't calibrated to
+// its demographics, so its multipliers are absolute (the border states' large Republican
+// multipliers are what give them Republican seats). Events can change them during play,
+// for example Q.mod_MN_fl += 0.05.
+var states = [
+    // FL Heartland
+    ['MN', 'Minnesota', 'heartland', 10, {fl: 1.30, dem: 0.85}],
+    ['WI', 'Wisconsin', 'heartland', 11, {fl: 1.20}],
+    ['ND', 'North Dakota', 'heartland', 3, {fl: 1.30, dem: 0.80}],
+    ['SD', 'South Dakota', 'heartland', 3, {fl: 1.00, rep: 1.05}],
+    ['IA', 'Iowa', 'heartland', 11, {fl: 0.90, rep: 1.05}],
+    ['NE', 'Nebraska', 'heartland', 6, {fl: 1.00, dem: 1.10}],
+    ['KS', 'Kansas', 'heartland', 8, {fl: 0.85, rep: 1.10}],
+    ['OK', 'Oklahoma', 'heartland', 8, {fl: 1.10, dem: 1.15}],
+    ['MT', 'Montana', 'heartland', 2, {fl: 1.10, dem: 1.10}],
+    ['ID', 'Idaho', 'heartland', 2, {fl: 0.85, rep: 1.05}],
+
+    // Industrial Belt
+    ['ME', 'Maine', 'industrial_belt', 4, {fl: 0.85, rep: 1.10}],
+    ['NH', 'New Hampshire', 'industrial_belt', 2, {fl: 0.85, rep: 1.10}],
+    ['VT', 'Vermont', 'industrial_belt', 2, {fl: 0.70, rep: 1.15}],
+    ['MA', 'Massachusetts', 'industrial_belt', 16, {fl: 0.85, dem: 1.20, rep: 0.95}],
+    ['RI', 'Rhode Island', 'industrial_belt', 3, {dem: 1.10}],
+    ['CT', 'Connecticut', 'industrial_belt', 5, {fl: 0.85, rep: 1.10}],
+    ['NY', 'New York', 'industrial_belt', 43, {fl: 1.05, dem: 1.15, rep: 0.95}],
+    ['NJ', 'New Jersey', 'industrial_belt', 12, {fl: 0.95, dem: 1.10}],
+    ['PA', 'Pennsylvania', 'industrial_belt', 36, {fl: 0.90, rep: 1.10}],
+    ['DE', 'Delaware', 'industrial_belt', 1, {rep: 1.05}],
+    ['MD', 'Maryland', 'industrial_belt', 6, {dem: 1.15, rep: 0.95}],
+    ['OH', 'Ohio', 'industrial_belt', 22, {fl: 1.05}],
+    ['IN', 'Indiana', 'industrial_belt', 13, {fl: 1.00, rep: 1.05}],
+    ['MI', 'Michigan', 'industrial_belt', 13, {fl: 1.00}],
+    ['IL', 'Illinois', 'industrial_belt', 27, {fl: 1.05, dem: 1.10}],
+
+    // The South (Farmer-Labor doesn't contest it; the Republican multiplier is what makes the border states competitive)
+    ['AL', 'Alabama', 'south', 10, {}],
+    ['AR', 'Arkansas', 'south', 7, {}],
+    ['FL', 'Florida', 'south', 4, {}],
+    ['GA', 'Georgia', 'south', 12, {}],
+    ['LA', 'Louisiana', 'south', 8, {}],
+    ['MS', 'Mississippi', 'south', 8, {}],
+    ['NC', 'North Carolina', 'south', 10, {rep: 2.4}],
+    ['SC', 'South Carolina', 'south', 7, {}],
+    ['TN', 'Tennessee', 'south', 10, {rep: 3.2}],
+    ['TX', 'Texas', 'south', 18, {}],
+    ['VA', 'Virginia', 'south', 10, {rep: 3.0}],
+    ['KY', 'Kentucky', 'south', 11, {rep: 4.5}],
+    ['WV', 'West Virginia', 'south', 6, {rep: 4.5}],
+    ['MO', 'Missouri', 'south', 16, {rep: 3.2}],
+
+    // The West
+    ['WA', 'Washington', 'west', 5, {fl: 1.30}],
+    ['OR', 'Oregon', 'west', 3, {fl: 1.05}],
+    ['CA', 'California', 'west', 11, {fl: 1.05}],
+    ['NV', 'Nevada', 'west', 1, {dem: 1.10}],
+    ['UT', 'Utah', 'west', 2, {fl: 0.75, rep: 1.10}],
+    ['AZ', 'Arizona', 'west', 1, {fl: 0.95, dem: 1.20}],
+    ['NM', 'New Mexico', 'west', 1, {fl: 0.85, dem: 1.15}],
+    ['CO', 'Colorado', 'west', 4, {fl: 1.05}],
+    ['WY', 'Wyoming', 'west', 1, {fl: 0.95, rep: 1.05}]
+];
+
+Q.state_ids = [];
+for (var r of Q.regions) {
+    Q['seats_total_' + r] = 0;
+}
+for (var s of states) {
+    var id = s[0];
+    Q.state_ids.push(id);
+    Q['st_' + id + '_name'] = s[1];
+    Q['st_' + id + '_region'] = s[2];
+    Q['st_' + id + '_seats'] = s[3];
+    Q['seats_total_' + s[2]] += s[3];
+    for (var p of Q.parties) {
+        Q['mod_' + id + '_' + p] = s[4][p] || 1;
+    }
+}
+!}
+go-to: root.election_calc
