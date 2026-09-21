@@ -4,12 +4,13 @@ on-arrival: {!
 // One row per state: [abbreviation, name, region, House seats (1913-1933 apportionment), party multipliers].
 //
 // The multipliers scale a party's vote in that state relative to its region. 1 is neutral, and
-// anything left out is 1. They are rescaled at election time so that each region's seat-weighted
-// average stays at 1, so they only say which states run above or below their region. They
-// don't change the regional totals. The exception is the South, which isn't calibrated to
-// its demographics, so its multipliers are absolute (the border states' large Republican
-// multipliers are what give them Republican seats). Events can change them during play,
-// for example Q.mod_MN_fl += 0.05.
+// anything left out is 1. They set each state's vote share (for statewide contests such as the
+// presidency and the Senate); House seats are decided by region, from the region's overall vote.
+// They are rescaled at election time so that each region's seat-weighted average stays at 1, so
+// they only say which states run above or below their region. The exception is the South, which
+// isn't calibrated to its demographics, so its multipliers are absolute: the border states'
+// large Republican multipliers are what give the South a Republican vote share at all. Events
+// can change them during play, for example Q.mod_MN_fl += 0.05.
 var states = [
     // FL Heartland
     ['MN', 'Minnesota', 'heartland', 10, {fl: 1.30, dem: 0.85}],
@@ -40,7 +41,7 @@ var states = [
     ['MI', 'Michigan', 'industrial_belt', 13, {fl: 1.00}],
     ['IL', 'Illinois', 'industrial_belt', 27, {fl: 1.05, dem: 1.10}],
 
-    // The South (Farmer-Labor doesn't contest it; the Republican multiplier is what makes the border states competitive)
+    // The South (Farmer-Labor doesn't contest it; the Republican multipliers are what make the border states competitive)
     ['AL', 'Alabama', 'south', 10, {}],
     ['AR', 'Arkansas', 'south', 7, {}],
     ['FL', 'Florida', 'south', 4, {}],

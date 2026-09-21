@@ -1,6 +1,11 @@
 title: Factions
 new-page: true
 is-special: true
+on-arrival: {!
+if (Q.started) {
+    Q.dissent_percent = window.factionDissent(Q);
+}
+!}
 
 = Farmer-Labor Factions
 
@@ -12,7 +17,7 @@ Factional dissent: [+ dissent_percent +]%
 **Populists**
 [+ populists_strength : strength +], [+ populists_dissent : dissent +]
 
-**Trade Unionists**
+**Industrial Unionists**
 [+ unionists_strength : strength +], [+ unionists_dissent : dissent +]
 
 **Progressives**

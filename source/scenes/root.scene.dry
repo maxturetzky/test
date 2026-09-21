@@ -85,16 +85,21 @@ for (var g of Q.groups) {
     // Farmer-Labor's baseline in each group; campaign gains fade back toward it over time.
     Q['base_' + g + '_fl'] = sup[g].fl;
 }
-// Farmer-Labor's vote is concentrated in farm counties, mining districts and mill towns, and the
-// Democrats' in machine-run city wards, so both win more seats than their vote share suggests.
-Q.conc_heartland_fl = 1.9;
-Q.conc_west_fl = 1.5;
+// House seats are decided by region. These factors stand in for how tightly a party's vote is packed
+// into districts: FL's in farm counties, mining districts and mill towns, the Democrats' in
+// machine-run city wards, the Republicans' in the South's border states. A factor above 1 wins a
+// party more seats than its vote share alone would. They are fitted so that 1928 starts at about
+// R 220 / D 172 / FL 43 and are not sourced from anywhere.
+Q.conc_heartland_fl = 2;
 Q.conc_industrial_belt_fl = 2;
 Q.conc_industrial_belt_dem = 4;
+Q.conc_west_fl = 1.2;
+Q.conc_south_rep = 2.5;
 
-// how much of the Republican bloc is the Liberal wing, and of the northern Democrats the Bourbons (percent).
+// what share of Republican seats are Liberal Republicans (percent). Placeholder: applied evenly
+// to the Republican total, not tied to any particular states.
 Q.liberal_share = 9;
-Q.bourbon_share = 7;
+Q.house_majority = 218;
 
 // Farmer-Labor's internal factions.
 Q.factions = ['socialists', 'populists', 'unionists', 'progressives'];
@@ -112,137 +117,9 @@ go-to: states
 
 @election_calc
 on-arrival: {!
-var regions = Q.regions;
-var parties = Q.parties;
-var groups = Q.groups;
-var live = Q.election_live == 1;
-var K = 3; // seat-winning exponent: winner-take-all districts reward the leading party
-
-// overall factional dissent, weighted by faction strength, hurts the party at the polls.
-var dsum = 0, ssum = 0;
-for (var f of Q.factions) {
-    dsum += Q[f + '_strength'] * Q[f + '_dissent'];
-    ssum += Q[f + '_strength'];
-}
-Q.dissent_percent = Math.round(dsum / ssum);
-
-var natVotes = {rep: 0, dem: 0, fl: 0};
-var natWeight = 0;
-var natSeats = {rep: 0, dem: 0, fl: 0};
-var flStates = [];
-
-for (var r of regions) {
-    var stateIds = Q.state_ids.filter(function (id) { return Q['st_' + id + '_region'] == r; });
-    var regionSeats = {rep: 0, dem: 0, fl: 0};
-    var regionShare = {rep: 0, dem: 0, fl: 0};
-    var regionWeight = 0;
-
-    // the region's baseline vote from its demographic makeup.
-    var base = {};
-    for (var p of parties) {
-        var v = 0;
-        for (var g of groups) {
-            v += Q['mix_' + r + '_' + g] * Q[g + '_' + p];
-        }
-        v *= Q['mod_' + r + '_' + p];
-        if (p == 'fl') {
-            v *= (1 - Q.dissent_percent / 200);
-        }
-        // small random regional swing in a real election.
-        if (live) {
-            v *= 1 + (Math.random() - 0.5) * 0.04;
-        }
-        base[p] = v;
-    }
-
-    // state multipliers are rescaled so that their seat-weighted average in the region is 1.
-    var norm = {};
-    for (var p of parties) {
-        var msum = 0, wsum = 0;
-        for (var id of stateIds) {
-            msum += Q['st_' + id + '_seats'] * Q['mod_' + id + '_' + p];
-            wsum += Q['st_' + id + '_seats'];
-        }
-        // the South isn't calibrated to demographics, so its multipliers are used as they are.
-        norm[p] = (r == 'south') ? 1 : msum / wsum;
-    }
-
-    for (var id of stateIds) {
-        var N = Q['st_' + id + '_seats'];
-        var raw = {};
-        var total = 0;
-        for (var p of parties) {
-            var v = base[p] * Q['mod_' + id + '_' + p] / norm[p];
-            // Farmer-Labor doesn't contest the Jim Crow South.
-            if (r == 'south' && p == 'fl') {
-                v = 0;
-            }
-            if (live) {
-                v *= 1 + (Math.random() - 0.5) * 0.02;
-            }
-            raw[p] = v;
-            total += v;
-        }
-        var seatsHere = {rep: 0, dem: 0, fl: 0};
-        // cube-law style allocation, with a per-party concentration multiplier.
-        var w = {};
-        var wtotal = 0;
-        for (var p of parties) {
-            w[p] = Math.pow(raw[p] / total, K) * Q['conc_' + r + '_' + p];
-            wtotal += w[p];
-        }
-        var used = 0;
-        var rem = [];
-        for (var p of parties) {
-            var x = N * w[p] / wtotal;
-            seatsHere[p] = Math.floor(x);
-            used += seatsHere[p];
-            rem.push([x - seatsHere[p], p]);
-        }
-        rem.sort(function (a, b) { return b[0] - a[0]; });
-        for (var i = 0; used < N; i++, used++) {
-            seatsHere[rem[i][1]] += 1;
-        }
-        for (var p of parties) {
-            var share = 100 * raw[p] / total;
-            Q['share_' + id + '_' + p] = Math.round(share * 10) / 10;
-            Q['seats_' + id + '_' + p] = seatsHere[p];
-            regionSeats[p] += seatsHere[p];
-            regionShare[p] += share * N;
-        }
-        regionWeight += N;
-        if (seatsHere.fl > 0) {
-            flStates.push([Q['st_' + id + '_name'], seatsHere.fl, N]);
-        }
-    }
-
-    for (var p of parties) {
-        var regionAverage = regionShare[p] / regionWeight;
-        Q['share_' + r + '_' + p] = Math.round(10 * regionAverage) / 10;
-        Q['seats_' + r + '_' + p] = regionSeats[p];
-        natVotes[p] += regionAverage * Q['voters_' + r];
-        natSeats[p] += regionSeats[p];
-    }
-    natWeight += Q['voters_' + r];
-}
-
-for (var p of parties) {
-    Q['vote_' + p] = Math.round(10 * natVotes[p] / natWeight) / 10;
-    Q['seats_' + p] = natSeats[p];
-}
-
-// Farmer-Labor's strongest states, for display.
-flStates.sort(function (a, b) { return b[1] - a[1]; });
-Q.fl_state_summary = flStates.map(function (s) { return s[0] + ' ' + s[1] + '/' + s[2]; }).join(', ');
-
-// break the House down into the six congressional blocs.
-Q.bloc_liberals = Math.round(Q.seats_rep * Q.liberal_share / 100);
-Q.bloc_old_guard = Q.seats_rep - Q.bloc_liberals;
-Q.bloc_southern = Q.seats_south_dem;
-var northernDems = Q.seats_dem - Q.seats_south_dem;
-Q.bloc_bourbon = Math.round(northernDems * Q.bourbon_share / 100);
-Q.bloc_machine = northernDems - Q.bloc_bourbon;
-Q.bloc_fl = Q.seats_fl;
-Q.house_majority = 218;
+// the election model lives in election.js, shared with the polls tab.
+var result = window.computeElection(Q, Q.election_live == 1);
+window.storeElection(Q, result, '');
+Q.dissent_percent = result.dissent;
 !}
 go-to: election_results if election_live = 1; main if election_live = 0
