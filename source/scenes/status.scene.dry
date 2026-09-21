@@ -2,11 +2,8 @@ title: Status
 new-page: true
 is-special: true
 on-arrival: {!
-Q.next_election_year = Q.year;
-if (Q.year % 2 == 1) {
-    Q.next_election_year = Q.year + 1;
-} else if (Q.month >= 11) {
-    Q.next_election_year = Q.year + 2;
+if (Q.started) {
+    Q.next_election_year = window.nextElectionYear(Q);
 }
 !}
 
@@ -28,6 +25,16 @@ Next House election: November [+ next_election_year +]
 <span style="color: #D98C3F;">**Northern Democrats**</span>: [+ bloc_northern_dem +]
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ bloc_fl +]
 
+= The Senate
+
+49 seats are needed for a majority.
+
+<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ sen_bloc_conservative_rep +]
+<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ sen_bloc_liberal_rep +]
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ sen_bloc_southern_dem +]
+<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ sen_bloc_northern_dem +]
+<span style="color: #C0392B;">**Farmer-Labor**</span>: [+ sen_bloc_fl +]
+
 = Last Election
 
 <span style="color: #1F4E9C;">**Republicans**</span>: [+ vote_rep +]%
@@ -48,6 +55,8 @@ on-arrival: {!
 if (Q.started) {
     var result = window.computeElection(Q, false);
     window.storeElection(Q, result, 'poll_');
+    Q.next_election_year = window.nextElectionYear(Q);
+    window.storeSenate(Q, window.computeSenate(Q, result, Q.next_election_year), 'poll_');
     // each group's current support as a percentage of its vote.
     for (var g of Q.groups) {
         var total = 0;
@@ -70,6 +79,16 @@ If the election were held today:
 <span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ poll_bloc_southern_dem +]
 <span style="color: #D98C3F;">**Northern Democrats**</span>: [+ poll_bloc_northern_dem +]
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ poll_bloc_fl +]
+
+= Projected Senate
+
+Seats up in November [+ next_election_year +]: [+ poll_sen_up +]
+
+<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ poll_sen_bloc_conservative_rep +]
+<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ poll_sen_bloc_liberal_rep +]
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ poll_sen_bloc_southern_dem +]
+<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ poll_sen_bloc_northern_dem +]
+<span style="color: #C0392B;">**Farmer-Labor**</span>: [+ poll_sen_bloc_fl +]
 
 = Support by Group
 

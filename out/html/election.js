@@ -12,7 +12,8 @@
  *      seat-weighted average of its states). They are shared out by a cube law, so the leading
  *      party wins more seats than its vote share, with a per-region, per-party concentration
  *      factor (conc_<region>_<party>) standing in for how tightly a party's vote is packed.
- *   3. State vote shares are kept for statewide contests (the presidency and the Senate).
+ *   3. State vote shares are kept for statewide contests. Senate seats (computeSenate) go to the
+ *      party with the most votes in the state, in the states whose class is up that year.
  */
 (function () {
     'use strict';
@@ -84,10 +85,6 @@
                 var total = 0;
                 PARTIES.forEach(function (p) {
                     var v = base[p] * Q['mod_' + id + '_' + p] / norm[p];
-                    // Farmer-Labor doesn't contest the Jim Crow South.
-                    if (r == 'south' && p == 'fl') {
-                        v = 0;
-                    }
                     if (live) {
                         v *= 1 + (Math.random() - 0.5) * 0.02;
                     }
@@ -145,8 +142,8 @@
             result.vote[p] = Math.round(10 * natVotes[p] / natWeight) / 10;
         });
 
-        // the House by congressional bloc.
-        var liberalRep = Math.round(result.seats.rep * Q.liberal_share / 100);
+        // the House by congressional bloc. Republicans elected in the West are Liberal Republicans.
+        var liberalRep = result.regions.west.seats.rep;
         result.blocs = {
             conservative_rep: result.seats.rep - liberalRep,
             liberal_rep: liberalRep,
@@ -177,5 +174,91 @@
         Object.keys(result.blocs).forEach(function (b) {
             Q[prefix + 'bloc_' + b] = result.blocs[b];
         });
+    };
+
+    // the year of the next House and Senate election (November of an even year).
+    window.nextElectionYear = function (Q) {
+        if (Q.year % 2 == 1) {
+            return Q.year + 1;
+        }
+        return Q.month >= 11 ? Q.year + 2 : Q.year;
+    };
+
+    // which Senate class is up in a given year: 1928 Class 1, 1930 Class 2, 1932 Class 3, then repeat.
+    window.senateClassUp = function (year) {
+        return Math.round((year - 1928) / 2) % 3 + 1;
+    };
+
+    // a senator's bloc, from their party and state. Republicans from the West are Liberal Republicans and
+    // Democrats from the South are Southern Democrats, matching how the House is split.
+    window.senateBloc = function (Q, id, party) {
+        var region = Q['st_' + id + '_region'];
+        if (party == 'fl') {
+            return 'fl';
+        }
+        if (party == 'rep') {
+            return region == 'west' ? 'liberal_rep' : 'conservative_rep';
+        }
+        return region == 'south' ? 'southern_dem' : 'northern_dem';
+    };
+
+    // The Senate after an election in `year` (or as it stands, if year is null), given a House result
+    // for the state vote shares. In each state whose class is up, the party with the most votes wins;
+    // the holding party gets Q.senate_incumbency extra points. Returns the seats, bloc totals and
+    // what changed, without changing Q.
+    window.computeSenate = function (Q, result, year) {
+        var classUp = year ? window.senateClassUp(year) : 0;
+        var label = {rep: 'R', dem: 'D', fl: 'FL'};
+        var out = {
+            seats: {},
+            blocs: {conservative_rep: 0, liberal_rep: 0, southern_dem: 0, northern_dem: 0, fl: 0},
+            up: 0,
+            won: {rep: 0, dem: 0, fl: 0},
+            changes: []
+        };
+        Q.state_ids.forEach(function (id) {
+            [1, 2].forEach(function (n) {
+                var key = id + '_' + n;
+                var party = Q['sen_' + key];
+                if (Q['sen_' + key + '_class'] == classUp) {
+                    out.up += 1;
+                    var shares = result.states[id].share;
+                    var winner = party;
+                    var best = shares[party] + Q.senate_incumbency;
+                    PARTIES.forEach(function (p) {
+                        if (p != party && shares[p] > best) {
+                            winner = p;
+                            best = shares[p];
+                        }
+                    });
+                    out.won[winner] += 1;
+                    if (winner != party) {
+                        out.changes.push(Q['st_' + id + '_name'] + ' (' + label[party] + ' to ' + label[winner] + ')');
+                    }
+                    party = winner;
+                }
+                out.seats[key] = party;
+                out.blocs[window.senateBloc(Q, id, party)] += 1;
+            });
+        });
+        return out;
+    };
+
+    // write a Senate result into the game's qualities. Only a real result (prefix '') changes who
+    // holds each seat; a projection ('poll_') only stores its totals.
+    window.storeSenate = function (Q, senate, prefix) {
+        if (prefix == '') {
+            Object.keys(senate.seats).forEach(function (key) {
+                Q['sen_' + key] = senate.seats[key];
+            });
+        }
+        Object.keys(senate.blocs).forEach(function (b) {
+            Q[prefix + 'sen_bloc_' + b] = senate.blocs[b];
+        });
+        Q[prefix + 'sen_up'] = senate.up;
+        PARTIES.forEach(function (p) {
+            Q[prefix + 'sen_won_' + p] = senate.won[p];
+        });
+        Q[prefix + 'sen_changes'] = senate.changes.length ? senate.changes.join(', ') : 'none';
     };
 }());

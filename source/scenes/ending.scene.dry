@@ -13,3 +13,11 @@ The years of the Federation have run their course, and the country is not the on
 <span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ bloc_southern_dem +]
 <span style="color: #D98C3F;">**Northern Democrats**</span>: [+ bloc_northern_dem +]
 <span style="color: #C0392B;">**Farmer-Labor**</span>: [+ bloc_fl +]
+
+**The Senate**
+
+<span style="color: #1F4E9C;">**Conservative Republicans**</span>: [+ sen_bloc_conservative_rep +]
+<span style="color: #7BA7D9;">**Liberal Republicans**</span>: [+ sen_bloc_liberal_rep +]
+<span style="color: #8B5A2B;">**Southern Democrats**</span>: [+ sen_bloc_southern_dem +]
+<span style="color: #D98C3F;">**Northern Democrats**</span>: [+ sen_bloc_northern_dem +]
+<span style="color: #C0392B;">**Farmer-Labor**</span>: [+ sen_bloc_fl +]

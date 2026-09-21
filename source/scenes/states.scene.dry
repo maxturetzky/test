@@ -41,7 +41,7 @@ var states = [
     ['MI', 'Michigan', 'industrial_belt', 13, {fl: 1.00}],
     ['IL', 'Illinois', 'industrial_belt', 27, {fl: 1.05, dem: 1.10}],
 
-    // The South (Farmer-Labor doesn't contest it; the Republican multipliers are what make the border states competitive)
+    // The South (the Republican multipliers are what make the border states competitive)
     ['AL', 'Alabama', 'south', 10, {}],
     ['AR', 'Arkansas', 'south', 7, {}],
     ['FL', 'Florida', 'south', 4, {}],
@@ -84,5 +84,72 @@ for (var s of states) {
         Q['mod_' + id + '_' + p] = s[4][p] || 1;
     }
 }
+
+// The Senate. One row per state: [state, party of one seat, that seat's class, party of the other
+// seat, that seat's class]. Parties are 'rep', 'dem' and 'fl'.
+//
+// Classes are the real ones: Class 1 is up in 1928 and 1934, Class 2 in 1930 and 1936, and Class 3
+// in 1932. A state's two seats are always in different classes.
+var senate = [
+    ['AL', 'dem', 2, 'dem', 3],
+    ['AZ', 'dem', 1, 'dem', 3],
+    ['AR', 'dem', 2, 'dem', 3],
+    ['CA', 'rep', 1, 'rep', 3],
+    ['CO', 'rep', 2, 'rep', 3],
+    ['CT', 'rep', 1, 'rep', 3],
+    ['DE', 'dem', 1, 'rep', 2],
+    ['FL', 'dem', 1, 'dem', 3],
+    ['GA', 'dem', 2, 'dem', 3],
+    ['ID', 'rep', 2, 'rep', 3],
+    ['IL', 'rep', 2, 'rep', 3],
+    ['IN', 'rep', 1, 'rep', 3],
+    ['IA', 'dem', 2, 'fl', 3],
+    ['KS', 'rep', 2, 'rep', 3],
+    ['KY', 'rep', 2, 'dem', 3],
+    ['LA', 'dem', 2, 'dem', 3],
+    ['ME', 'rep', 1, 'rep', 2],
+    ['MD', 'dem', 1, 'dem', 3],
+    ['MA', 'dem', 1, 'rep', 2],
+    ['MI', 'rep', 1, 'rep', 2],
+    ['MN', 'fl', 1, 'fl', 2],
+    ['MS', 'dem', 1, 'dem', 2],
+    ['MO', 'dem', 1, 'dem', 3],
+    ['MT', 'fl', 1, 'dem', 2],
+    ['NE', 'rep', 1, 'rep', 2],
+    ['NV', 'rep', 1, 'dem', 3],
+    ['NH', 'rep', 2, 'rep', 3],
+    ['NJ', 'dem', 1, 'rep', 2],
+    ['NM', 'rep', 1, 'dem', 2],
+    ['NY', 'dem', 1, 'dem', 3],
+    ['NC', 'dem', 2, 'dem', 3],
+    ['ND', 'fl', 1, 'fl', 3],
+    ['OH', 'rep', 1, 'rep', 3],
+    ['OK', 'rep', 2, 'fl', 3],
+    ['OR', 'rep', 2, 'rep', 3],
+    ['PA', 'rep', 1, 'rep', 3],
+    ['RI', 'rep', 1, 'dem', 2],
+    ['SC', 'dem', 2, 'dem', 3],
+    ['SD', 'rep', 2, 'fl', 3],
+    ['TN', 'dem', 1, 'dem', 2],
+    ['TX', 'dem', 1, 'dem', 2],
+    ['UT', 'rep', 1, 'dem', 3],
+    ['VT', 'rep', 1, 'rep', 3],
+    ['VA', 'dem', 1, 'dem', 2],
+    ['WA', 'dem', 1, 'rep', 3],
+    ['WV', 'dem', 1, 'rep', 2],
+    ['WI', 'fl', 1, 'fl', 3],
+    ['WY', 'dem', 1, 'rep', 2]
+];
+
+for (var row of senate) {
+    var id = row[0];
+    Q['sen_' + id + '_1'] = row[1];
+    Q['sen_' + id + '_1_class'] = row[2];
+    Q['sen_' + id + '_2'] = row[3];
+    Q['sen_' + id + '_2_class'] = row[4];
+}
+// bonus, in points of vote share, for the party holding a Senate seat.
+Q.senate_incumbency = 20;
+Q.senate_majority = 49;
 !}
 go-to: root.election_calc

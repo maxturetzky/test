@@ -85,20 +85,28 @@ for (var g of Q.groups) {
     // Farmer-Labor's baseline in each group; campaign gains fade back toward it over time.
     Q['base_' + g + '_fl'] = sup[g].fl;
 }
+// regional adjustments: a multiplier on each party's vote in the region (1 = no change), applied on
+// top of the demographic makeup. The South has none.
+Q.mod_heartland_fl = 1.55;
+Q.mod_heartland_rep = 0.85;
+Q.mod_heartland_dem = 0.75;
+Q.mod_industrial_belt_fl = 0.8;
+Q.mod_industrial_belt_rep = 1.05;
+Q.mod_industrial_belt_dem = 1.05;
+Q.mod_west_fl = 1.1;
+Q.mod_west_rep = 0.95;
+Q.mod_west_dem = 0.9;
 // House seats are decided by region. These factors stand in for how tightly a party's vote is packed
 // into districts: FL's in farm counties, mining districts and mill towns, the Democrats' in
 // machine-run city wards, the Republicans' in the South's border states. A factor above 1 wins a
-// party more seats than its vote share alone would. They are fitted so that 1928 starts at about
-// R 220 / D 172 / FL 43 and are not sourced from anywhere.
+// party more seats than its vote share alone would. They are fitted values, not sourced from anywhere.
+// They were fitted before the regional adjustments above were added, so they have not been refitted.
 Q.conc_heartland_fl = 2;
 Q.conc_industrial_belt_fl = 2;
 Q.conc_industrial_belt_dem = 4;
 Q.conc_west_fl = 1.2;
 Q.conc_south_rep = 2.5;
 
-// what share of Republican seats are Liberal Republicans (percent). Placeholder: applied evenly
-// to the Republican total, not tied to any particular states.
-Q.liberal_share = 9;
 Q.house_majority = 218;
 
 // Farmer-Labor's internal factions.
@@ -120,6 +128,9 @@ on-arrival: {!
 // the election model lives in election.js, shared with the polls tab.
 var result = window.computeElection(Q, Q.election_live == 1);
 window.storeElection(Q, result, '');
+// Senate seats in the class that is up go to the leading party in each state.
+var senate = window.computeSenate(Q, result, Q.election_live == 1 ? Q.year : null);
+window.storeSenate(Q, senate, '');
 Q.dissent_percent = result.dissent;
 !}
 go-to: election_results if election_live = 1; main if election_live = 0
