@@ -42,11 +42,13 @@ Q.parties = ['rep', 'dem', 'fl'];
 Q.groups = ['farmers', 'southern_whites', 'urban_ethnic', 'tradesmen', 'industrial', 'business', 'small_town'];
 Q.regions = ['heartland', 'industrial_belt', 'south', 'west'];
 
-// relative turnout by region (the South is heavily disenfranchised).
-Q.turnout_heartland = 1;
-Q.turnout_industrial_belt = 1;
-Q.turnout_south = 0.36;
-Q.turnout_west = 1;
+// each region's share of the national electorate (percent of voters). These were fitted so that
+// the regions' demographic mixes add up to the national group shares in the design document.
+// They only affect the national popular vote figure; seats are decided within each state.
+Q.voters_heartland = 23;
+Q.voters_industrial_belt = 37.5;
+Q.voters_south = 24.5;
+Q.voters_west = 15;
 
 // share of each region's electorate made up of each group (percent).
 var mix = {
@@ -203,21 +205,22 @@ for (var r of regions) {
             Q['share_' + id + '_' + p] = Math.round(share * 10) / 10;
             Q['seats_' + id + '_' + p] = seatsHere[p];
             regionSeats[p] += seatsHere[p];
-            regionShare[p] += share * N * Q['turnout_' + r];
+            regionShare[p] += share * N;
         }
-        regionWeight += N * Q['turnout_' + r];
+        regionWeight += N;
         if (seatsHere.fl > 0) {
             flStates.push([Q['st_' + id + '_name'], seatsHere.fl, N]);
         }
     }
 
     for (var p of parties) {
-        Q['share_' + r + '_' + p] = Math.round(10 * regionShare[p] / regionWeight) / 10;
+        var regionAverage = regionShare[p] / regionWeight;
+        Q['share_' + r + '_' + p] = Math.round(10 * regionAverage) / 10;
         Q['seats_' + r + '_' + p] = regionSeats[p];
-        natVotes[p] += regionShare[p];
+        natVotes[p] += regionAverage * Q['voters_' + r];
         natSeats[p] += regionSeats[p];
     }
-    natWeight += regionWeight;
+    natWeight += Q['voters_' + r];
 }
 
 for (var p of parties) {
